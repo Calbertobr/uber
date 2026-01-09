@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Consulta de Movimentos{% endblock %}
+{% block content %}
+<h2>Consulta de Movimentos V:{{release}}</h2>
+<form method="post" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-5">
+            <label for="data_inicio" class="form-label">Data Início</label>
+            <input type="date" class="form-control" id="data_inicio" name="data_inicio" >
+        </div>
+        <div class="col-md-5">
+            <label for="data_fim" class="form-label">Data Fim</label>
+            <input type="date" class="form-control" id="data_fim" name="data_fim" >
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+{% if movimentos %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Movimento</th>
+                <th>Tipo</th>
+                <th>Carro</th>
+                <th>Odômetro</th>
+                <th>Tempo</th>
+                <th>Distância</th>
+                <th>Ponto</th>
+                <th>Valor</th>
+                <th>Valor / Km</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mov in movimentos %}
+            <tr>
+                <td>{{ mov.id }}</td>
+                <td>{{ mov.data }}</td>
+                <td>{{ mov.descricao }}</td>
+                <td>{{ mov.placa }}</td>
+                <td class="td_number" >{{ mov.odometro }}</td>
+                <td>{{ mov.tempo }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.distancia) }}</td>
+                <td class="td_number" >{{ mov.ponto }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.valor) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.valorkm) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="footer-total">
+            {% for bar in bare %}
+            <tr>
+                <td>{{ bar.id }}</td>
+                <td>{{ bar.data }}</td>
+                <td>{{ bar.descricao }}</td>
+                <td>{{ bar.placa }}</td>
+                <td class="td_number" >{{ bar.percorrido }}</td>
+                <td>{{ bar.tempo }}</td>
+                <td class="td_number" >{{ "%.2f"|format(bar.distancia) }}</td>
+                <td class="td_number" >{{ bar.ponto }}</td>
+                <td class="td_number" >{{ "%.2f"|format(bar.valor) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(bar.valorkm) }}</td>
+            </tr>
+            {% endfor %}
+        </tfoot>
+    </table>
+    <hr>
+    <h3>Resumo</h3>
+    <hr>
+
+    {% if resumo %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th>Ocorrencias</th>
+                <th>Percorrido</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in resumo %}
+            <tr>
+                <td>{{ res.id }}</td>
+                <td>{{ res.descricao }}</td>
+                <td>{{ "%.0f"|format(res.qtd) }}</td>
+                <td>{{ res.percorrido }}</td>
+                <td class="td_number" >{{ "%.2f"|format(res.valortotal) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="footer-total">
+            <tr>
+                <td colspan="4">Resultado Final</td>
+                <td class="td_number" >{{ "%.2f"|format(total.resultado) }}</td>
+            </tr>
+        </tfoot>        
+    </table>
+    {% endif %}
+
+
+{% elif request.method == 'POST' and not movimentos %}
+    <div class="alert alert-warning" role="alert">
+        Nenhum movimento encontrado para o período selecionado.
+    </div>
+{% endif %}
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar ao Menu</a>
+{% endblock %}
+

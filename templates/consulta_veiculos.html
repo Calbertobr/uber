@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Consulta de Veiculos{% endblock %}
+{% block content %}
+<h2>Consulta de Veiculos V:{{release}}</h2>
+
+{% if veiculos %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Placa</th>
+                <th>Fabricante</th>
+                <th>Modelo</th>
+                <th class="td_number" >Km Inicio</th>
+                <th class="td_number" >Km Fim</th>
+                <th class="td_number" >Km Rodado</th>
+                <th class="td_number" >Data Inicio</th>
+                <th class="td_number" >Data Entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for veic in veiculos %}
+            <tr>
+                <td>{{ veic.id }}</td>
+                <td>{{ veic.placa }}</td>
+                <td>{{ veic.fabricante }}</td>
+                <td>{{ veic.modelo }}</td>
+                <td class="td_number" >{{ veic.km_start }}</td>
+                <td class="td_number" >{{ veic.km_end }}</td>
+                <td class="td_number" >{{ veic.km_rodado }}</td>
+                <td class="td_number" >{{ veic.data_start }}</td>
+                <td class="td_number" >{{ veic.data_stop }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if total %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Inicio Contrato</th>
+                <th>KM Contratada</th>
+                <th class="td_number" >KM Rodada</th>
+                <th class="td_number" >KM Restante</th>
+                <th class="td_number" >Dias Contratados</th>
+                <th class="td_number" >Dias Restantes</th>
+                <th class="td_number" >KM Pendente Dia</th>
+                
+            </tr>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ total.InicioContrato }}</td>
+                <td>{{ "%.0f"|format(total.Alugueis) }}</td>
+                <td class="td_number" >{{ "%.0f"|format(total.Kilometragem) }}</td>
+                <td class="td_number" >{{ "%.0f"|format(total.Alugueis - total.Kilometragem) }}</td>
+                <td class="td_number"  >{{ total.DiasContrato }}</td>
+                <td class="td_number"  >{{ total.DiasContrato - total.DiasUso }}</td>
+                <td class="td_number"  >{{ "%.2f"|format(( total.Alugueis - total.Kilometragem ) / ( total.DiasContrato - total.DiasUso )) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Nenhum veiculo encontrado.
+    </div>
+{% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar ao Menu</a>
+{% endblock %}
+

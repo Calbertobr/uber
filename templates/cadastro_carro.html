@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro de Carro{% endblock %}
+{% block content %}
+<h2>Cadastro de Carro</h2>
+<form method="post">
+    <div class="mb-3">
+        <label for="placa" class="form-label">Placa (7 dígitos)</label>
+        <input type="text" class="form-control" id="placa" name="placa" maxlength="7" required>
+    </div>
+    <div class="mb-3">
+        <label for="fabricante" class="form-label">Fabricante</label>
+        <input type="text" class="form-control" id="fabricante" name="fabricante" maxlength="100">
+    </div>
+    <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <input type="text" class="form-control" id="modelo" name="modelo" maxlength="100">
+    </div>
+    <div class="mb-3">
+        <label for="km_start" class="form-label">KM Inicial</label>
+        <input type="number" class="form-control" id="km_start" name="km_start" required>
+    </div>
+    <div class="mb-3">
+        <label for="km_end" class="form-label">KM Final</label>
+        <input type="number" class="form-control" id="km_end" name="km_end">
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
+

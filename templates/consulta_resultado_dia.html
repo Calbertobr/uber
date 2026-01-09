@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Consulta de Reultados Dia{% endblock %}
+{% block content %}
+<h2>Consulta de Resultados Dia</h2>
+
+<form method="post" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-5">
+            <label for="data_ref" class="form-label">Data</label>
+            <input type="date" class="form-control" id="data_ref" name="data_ref" >
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+{% if movimento_dia %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Movimento</th>
+                <th>Tipo</th>
+                <th>Carro</th>
+                <th class="td_number" >Odômetro</th>
+                <th>Tempo</th>
+                <th class="td_number" >Distância</th>
+                <th class="td_number" >Ponto</th>
+                <th class="td_number" >Valor</th>
+                <th class="td_number" >Valor Km</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mov in movimento_dia %}
+            <tr>
+                <td>{{ mov.id }}</td>
+                <td>{{ mov.data }}</td>
+                <td>{{ mov.descricao }}</td>
+                <td>{{ mov.placa }}</td>
+                <td class="td_number" >{{ mov.odometro }}</td>
+                <td>{{ mov.tempo }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.distancia) }}</td>
+                <td class="td_number" >{{ mov.ponto }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.valor) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(mov.valor_km) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% if movimento_soma %}
+        <tfoot class="footer-total">
+            {% for soma in movimento_soma %}
+            <tr>
+                <td>{{ soma.id }}</td>
+                <td>{{ soma.data }}</td>
+                <td>{{ soma.descricao }}</td>
+                <td>{{ soma.placa }}</td>
+                <td class="td_number" >{{ soma.percurso }}</td>
+                <td>{{ soma.tempo_total }}</td>
+                <td class="td_number" >{{ "%.2f"|format(soma.distancia_total) }}</td>
+                <td class="td_number" >{{ soma.ponto }}</td>
+                <td class="td_number" >{{ "%.2f"|format(soma.valor_total) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(soma.valor_km) }}</td>
+            </tr>
+            {% endfor %}
+        </tfoot>
+        {% endif %}
+    </table>
+
+    <table class="table table-striped table-hover">        
+        <tbare>
+            <tr>
+                <td class="td_number" >Nivel de Serviço %</td>
+                <td class="td_number" >Valor Km</td>
+                <td class="td_number" >Valor Km Total</td>
+                <td class="td_number" >Consumo Km/L Total</td>
+                <td class="td_number" >Custo Locação</td>
+            </tr>
+            {% for resumo in resumo %}
+            <tr>
+                <td class="td_number" >{{ "%.2f"|format(resumo.servico) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(resumo.valor_km) }}</td>
+                <td class="td_number" >{{ "%.2f"|format(resumo.valor_km_total) }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbare>
+    </table>
+    <hr>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Nenhum resumo encontrado.
+    </div>
+{% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar ao Menu</a>
+{% endblock %}
+

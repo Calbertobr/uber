@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Menu Principal{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="list-group"><h5>Cadastros</h5></div>
+        
+        <div class="list-group">
+            <a href="{{ url_for('cadastro_tipo') }}" class="list-group-item list-group-item-action">Tipo</a>
+            <a href="{{ url_for('cadastro_carro') }}" class="list-group-item list-group-item-action">Carro</a>
+            <a href="{{ url_for('cadastro_movimento') }}" class="list-group-item list-group-item-action">Movimento</a>
+        </div>
+        <div class="list-group"><h5><br><br><br>Consultas</h5></div>
+        
+        <div class="list-group">
+            <a href="{{ url_for('consulta_tipos') }}" class="list-group-item list-group-item-action">Tipos</a>
+            <a href="{{ url_for('consulta_veiculos') }}" class="list-group-item list-group-item-action">Veiculos</a>
+            <a href="{{ url_for('consulta_movimentos') }}" class="list-group-item list-group-item-action">Movimentos</a>
+            <a href="{{ url_for('consulta_resultado_dia') }}" class="list-group-item list-group-item-action">Resultado Dia</a>
+            <a href="{{ url_for('consulta_resultado_mes') }}" class="list-group-item list-group-item-action">Resultado Mensal</a>
+            <a href="{{ url_for('consulta_resumo_geral') }}" class="list-group-item list-group-item-action">Reumo Geral</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

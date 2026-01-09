@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Gerenciamento de Frota{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 20px; }
+        .footer-total { font-weight: bold; background-color: #f8f9fa; padding: 10px; border-top: 2px solid #ccc; }
+        .td_number { text-align: right; }
+        .th_number { text-align: right; }
+        .div-1 { float: left; }
+        .div-2 { float: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Gerenciamento de Frota</h1>
+        <hr>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

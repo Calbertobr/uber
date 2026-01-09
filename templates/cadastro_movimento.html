@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro de Movimento{% endblock %}
+{% block content %}
+<h2>Cadastro de Movimento</h2>
+<form method="post">
+
+    <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo</label>
+        <select class="form-select" id="tipo" name="tipo"  required>
+            <option value="">Selecione um tipo...</option>
+            {% for t in tipos %}
+            <option value="{{ t.id }}">{{ t.sigla }} - {{ t.descricao }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="carro" class="form-label">Carro</label>
+        <select class="form-select" id="carro" name="carro" required>
+            {% for c in carros %}
+            <option value="{{ c.id }}">{{ c.placa }} ({{ c.modelo }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="mb-3">
+        <label for="data" class="form-label">Data e Hora</label>
+        <input type="datetime-local" class="form-control" id="data" name="data" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="odometro" class="form-label">Odômetro</label>
+        <input type="number" class="form-control" id="odometro" name="odometro" value=0 required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="tempo" class="form-label">Tempo (HH:MM:SS)</label>
+        <input type="time" step="1" class="form-control" id="tempo" name="tempo" value="00:00:00" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="distancia" class="form-label">Distância</label>
+        <input type="number" class="form-control" id="distancia" name="distancia" step="0.01" value=0 required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="ponto" class="form-label">Ponto</label>
+        <input type="number" class="form-control" id="ponto" name="ponto" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="valor" class="form-label">Valor</label>
+        <input type="number" class="form-control" id="valor" name="valor" step="0.01" required>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="litros" class="form-label">Litros</label>
+        <input type="number" class="form-control" id="litros" name="litros" step="0.01" required>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
+
+

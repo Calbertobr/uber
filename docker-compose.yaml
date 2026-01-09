@@ -1,0 +1,56 @@
+services:
+    pgs:
+        # image: postgres:16
+        container_name: pgs
+        build:
+            dockerfile: Dockerfile.pgs
+        environment:
+            POSTGRES_DB: datauber
+            POSTGRES_USER: uber
+            POSTGRES_PASSWORD: mameluco02
+        volumes:
+        - postgres_data:/var/lib/postgresql/datauber
+        - backup:/backup
+        # - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Optional: For running initial SQL scripts
+        ports:
+        - "5432:5432"
+        restart: always
+
+    # pga:
+    #     image: dpage/pgadmin4 # Imagem oficial do pgAdmin 4
+    #     # image: dockage/phppgadmin:latest
+    #     container_name: pga
+    #     environment:
+    #         # PHP_PG_ADMIN_SERVER_HOST: 10.200.162
+    #         # PHP_PG_ADMIN_SERVER_PORT: 5432
+    #         # PHP_PG_ADMIN_SERVER_DEFAULT_DB: datauber
+    #         # PHP_PG_ADMIN_SERVER_USER: uber
+    #         # PHP_PG_ADMIN_SERVER_PASSWORD: mameluco02
+    #         PGADMIN_DEFAULT_EMAIL: calbetobr@gmail.com
+    #         PGADMIN_DEFAULT_PASSWORD: mameluco02
+    #     ports:
+    #     - "8080:80"
+    #     depends_on:
+    #     - pgs
+    #     restart: always
+
+    web:
+        container_name: web
+        build:
+            dockerfile: Dockerfile.web
+        restart: always
+        depends_on:
+        - pgs
+        ports:
+        - '5000:5000'
+        environment:
+        - DB_HOST=10.200.0.10
+        - DB_USER=uber
+        - DB_PASSWORD=mameluco02
+        - DB_NAME=datauber
+        volumes:
+        - backup:/backup
+
+volumes:
+    backup: null
+    postgres_data: null

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro de Tipo{% endblock %}
+{% block content %}
+<h2>Cadastro de Tipo</h2>
+<form method="post">
+    <div class="mb-3">
+        <label for="sigla" class="form-label">Sigla (1 caractere)</label>
+        <input type="text" class="form-control" id="sigla" name="sigla" maxlength="1" required>
+    </div>
+    <div class="mb-3">
+        <label for="descript" class="form-label">Descrição</label>
+        <input type="text" class="form-control" id="descript" name="descript" maxlength="100" required>
+    </div>
+    <div class="mb-3">
+        <label for="contab" class="form-label">Contabil</label>
+        <select type="number" class="form-control" id="contabil" name="contabil" maxlength="1" required>
+            <option value=1 >Credito</option>
+            <option value=-1 >Debito</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
